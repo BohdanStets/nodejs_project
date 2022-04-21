@@ -3,6 +3,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const config = require("./config/database");
 const pages = require("./routes/pages");
+const adminPages = require("./routes/admin_pages");
 
 const PORT = 3000;
 //Init app
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //set routes
 app.use("/", pages);
+app.use("/admin/pages", adminPages);
 
 
 app.listen(PORT, () => {
