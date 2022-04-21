@@ -2,6 +2,8 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const config = require("./config/database");
+const pages = require("./routes/pages");
+
 const PORT = 3000;
 //Init app
 const app = express();
@@ -14,15 +16,15 @@ db.once("open", () => {
 });
 
 //View engine setup
-app.set("views", path.resolve(__dirname, "views"));
+app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 //Set public folder
-app.use(express.static(path.resolve(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public")));
 
-app.get("/", (req, res) => {
-  res.send("Working!");
-});
+//set routes
+app.use("/", pages);
+
 
 app.listen(PORT, () => {
   console.log(`Server has been started on port ${PORT}!`);
