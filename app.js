@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const config = require("./config/database");
 const pages = require("./routes/pages");
 const adminPages = require("./routes/admin_pages");
-
+const bodyParser = require("body-parser");
 const PORT = 3000;
 //Init app
 const app = express();
@@ -23,10 +23,13 @@ app.set("view engine", "ejs");
 //Set public folder
 app.use(express.static(path.join(__dirname, "public")));
 
+//Body parser middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 //set routes
 app.use("/", pages);
 app.use("/admin/pages", adminPages);
-
 
 app.listen(PORT, () => {
   console.log(`Server has been started on port ${PORT}!`);
